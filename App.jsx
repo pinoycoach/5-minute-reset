@@ -1,19 +1,21 @@
+// Get React hooks from global React object
 const { useState, useEffect, useCallback } = React;
 
-const Brain = (props) => <svg {...props} className={props.className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>;
-const Timer = (props) => <svg {...props} className={props.className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>;
-const AlertTriangle = (props) => <svg {...props} className={props.className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>;
-const Heart = (props) => <svg {...props} className={props.className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>;
-const Mail = (props) => <svg {...props} className={props.className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>;
-const Check = (props) => <svg {...props} className={props.className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7"/></svg>;
-const Edit3 = (props) => <svg {...props} className={props.className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>;
-const Lightbulb = (props) => <svg {...props} className={props.className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>;
-const Sparkles = (props) => <svg {...props} className={props.className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>;
-const PlayCircle = (props) => <svg {...props} className={props.className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>;
-const PauseCircle = (props) => <svg {...props} className={props.className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>;
-const RotateCcw = (props) => <svg {...props} className={props.className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>;
-const Copy = (props) => <svg {...props} className={props.className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>;
-const CheckCircle = (props) => <svg {...props} className={props.className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>;
+// Lucide icons as simple SVG components
+const Brain = (props) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>;
+const Timer = (props) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>;
+const AlertTriangle = (props) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>;
+const Heart = (props) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>;
+const Mail = (props) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>;
+const Check = (props) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7"/></svg>;
+const Edit3 = (props) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>;
+const Lightbulb = (props) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>;
+const Sparkles = (props) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>;
+const PlayCircle = (props) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>;
+const PauseCircle = (props) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>;
+const RotateCcw = (props) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>;
+const Copy = (props) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>;
+const CheckCircle = (props) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>;
 
 function FiveMinuteResetUltimate() {
   const [step, setStep] = useState('disclaimer');
@@ -122,7 +124,13 @@ function FiveMinuteResetUltimate() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          prompt: `You are a compassionate friend helping someone find clarity.
+          prompt: `You are the Genius Catalyst from Napoleon Beltran's GENIUS:60 framework.
+
+PHILOSOPHY:
+- Users don't need solutions, they need CLARITY
+- Sometimes acceptance IS the action - waiting can break inertia
+- The first domino is enough - they don't need the whole path  
+- The act of reframing creates transformation
 
 Their initial Real Question is:
 "${initial}"
@@ -132,52 +140,94 @@ Context:
 - Fear: ${fear}
 - Real Prize: ${prize}
 
-Using Verbalized Sampling, generate 3 DIVERSE refinements of this question. Each should take a different approach:
-1. Action-Focused: Emphasizes taking steps, agency, movement forward
-2. Acceptance-Focused: Emphasizes self-compassion, permission, being vs doing
-3. Minimalist: The simplest, most elegant version possible
+STEP 1 - VERBAL SAMPLING ANALYSIS:
+Before refining, analyze their language patterns:
 
-CRITICAL: Write at a 5th grade reading level. Use:
-- Short, simple words (avoid jargon, psychology terms, or complex vocabulary)
-- Clear, direct sentences (no more than 15 words per sentence)
-- Everyday language a 10-year-old would understand
-- Active voice ("I can..." not "It would be possible for me to...")
-- Concrete words, not abstract concepts
+1. LANGUAGE STYLE:
+   - "I want" = motivated, ready for action
+   - "I need" = desperate, urgent energy
+   - "I should" = obligated, external pressure
+   - Concrete details = clear, action-ready
+   - Vague/abstract = confused, needs acceptance
 
-BAD examples (too complex):
-- "How might I cultivate a sense of worthiness?"
-- "What if I could embrace vulnerability without catastrophizing?"
-- "How can I navigate this transition authentically?"
+2. EMOTIONAL STATE:
+   - Urgent language = needs one small step
+   - Resigned language = needs permission to pause
+   - Hopeful language = needs to see possibilities
+   - Conflicted language = needs integration
 
-GOOD examples (clear and simple):
-- "How can I feel good about myself?"
-- "What if I'm scared and that's okay?"
-- "What small thing can I do today?"
+3. CORE VALUE (from their "prize"):
+   - Freedom/independence = identity-focused refinement
+   - Security/safety = acceptance-focused refinement  
+   - Pride/respect = legacy-focused refinement
+   - Connection = integration-focused refinement
 
-For each refinement, provide:
-- The refined question (simple, clear, their voice)
-- A confidence score (0-100) indicating how well this approach fits their context
+STEP 2 - GENERATE 3 GENIUS:60 REFINEMENTS:
+
+Each refinement must:
+- Shift from EXTERNAL OUTCOMES to INTERNAL IDENTITY
+- Remove fear-dependency (use phrases like "regardless of outcome")
+- Reframe competing priorities as ONE INTEGRATED PATH
+- Make it about PURPOSE and WHO THEY BECOME, not what they get
+- Provoke an "OH... THAT'S what this is about!" moment
+
+Generate these 3 types:
+
+1. **Identity-Focused**: Reframe as WHO they're becoming
+   - Use: "How can I become..." or "What if being X IS how I..."
+   - Example: "What if becoming the kind of person who [prize] IS how I [goal]?"
+
+2. **Integration-Focused**: Show how conflicts are ONE path
+   - Use: "What if X IS the path to Y?" or "How can X prove Y?"
+   - Example: "What if [seemingly competing things] are actually one mission?"
+
+3. **Legacy-Focused**: Frame around lasting impact
+   - Use: "...regardless of outcome" or "...while building a legacy of..."
+   - Example: "How can I [action] in a way that creates [legacy], regardless of [fear]?"
+
+CRITICAL WRITING RULES:
+- Write at a 5th grade reading level
+- Use short, simple words (no jargon, no therapy-speak)
+- Clear sentences under 15 words
+- Active voice: "I can..." not "It would be possible..."
+- Sound like THEM, not a therapist
+
+BAD (too complex):
+- "How might I cultivate worthiness?"
+- "What if I could embrace vulnerability?"
+
+GOOD (clear and simple):
+- "What if I'm enough right now?"
+- "Can I try one small thing today?"
+
+For each refinement provide:
+- The question (in their voice, simple words)
+- Why this resonates (based on their language patterns)
+- Confidence score (0-100)
 
 Return ONLY valid JSON array:
 [
   {
-    "type": "Action-Focused",
-    "question": "refined question here in simple words",
+    "type": "Identity-Focused",
+    "question": "refined question in simple words",
+    "why": "Based on their language, this helps them see they're becoming someone who...",
     "confidence": 85
   },
   {
-    "type": "Acceptance-Focused", 
-    "question": "refined question here in simple words",
+    "type": "Integration-Focused",
+    "question": "refined question in simple words", 
+    "why": "Their conflict isn't a conflict - this shows how...",
     "confidence": 72
   },
   {
-    "type": "Minimalist",
-    "question": "refined question here in simple words",
+    "type": "Legacy-Focused",
+    "question": "refined question in simple words",
+    "why": "This removes fear-dependency by focusing on...",
     "confidence": 91
   }
 ]
 
-Make it sound like THEM talking to themselves, not a therapist talking to them.
+Make it transformative. Make them see it differently.
 Use "I" and "me" (first person). Use real, human words.
 NO markdown, NO backticks, ONLY valid JSON array.`,
           temperature: 1.0,
@@ -215,18 +265,21 @@ NO markdown, NO backticks, ONLY valid JSON array.`,
       // Fallback: Show generic refinements in simple language
       const fallbackRefinements = [
         { 
-          type: "Action-Focused", 
-          question: `What small step can I take to feel ${prize}, even if ${fear} still scares me?`,
+          type: "Identity-Focused", 
+          question: `What if becoming someone who feels ${prize} IS how I ${goal}?`,
+          why: `This reframes it as who you're becoming, not what you're getting`,
           confidence: 85 
         },
         { 
-          type: "Acceptance-Focused", 
-          question: `What if it's okay that I want ${prize} but I'm not ready to face ${fear} yet?`,
+          type: "Integration-Focused", 
+          question: `What if ${goal} and feeling ${prize} are actually the same path?`,
+          why: `This shows the conflict might not be a conflict at all`,
           confidence: 72 
         },
         { 
-          type: "Minimalist",
-          question: `Can I feel ${prize} without fixing ${fear} first?`,
+          type: "Legacy-Focused",
+          question: `How can I move toward ${prize} in a way I'll be proud of, regardless of ${fear}?`,
+          why: `This removes fear-dependency and focuses on legacy`,
           confidence: 91 
         }
       ];
@@ -576,13 +629,16 @@ NO markdown, NO backticks, ONLY valid JSON array.`,
                 <label className="block font-semibold text-gray-900 mb-2">
                   1. The Goal (What you think you want)
                 </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  What result are you trying to get? Be specific.
+                <p className="text-sm text-gray-600 mb-3">
+                  Describe what you want in your own words. Don't edit - just talk to me like you're telling a friend.
+                </p>
+                <p className="text-xs text-blue-600 mb-2 italic">
+                  💡 Use phrases like "I want..." or "I need..." or "I should..." - whatever feels natural
                 </p>
                 <textarea
                   value={goal}
                   onChange={(e) => setGoal(e.target.value)}
-                  placeholder="Example: Get promoted, launch my business, fix my relationship..."
+                  placeholder="Example: I want to get promoted so I can finally feel like my work matters..."
                   className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   rows={3}
                 />
@@ -590,15 +646,18 @@ NO markdown, NO backticks, ONLY valid JSON array.`,
 
               <div>
                 <label className="block font-semibold text-gray-900 mb-2">
-                  2. The Fear (What you're really afraid of)
+                  2. The Fear (The voice in your head)
                 </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  What's the scary thing underneath? Be brutally honest.
+                <p className="text-sm text-gray-600 mb-3">
+                  What's the worry saying? Is it urgent, nagging, or crushing? Just let it out.
+                </p>
+                <p className="text-xs text-blue-600 mb-2 italic">
+                  💡 Write like you're venting - "I'm scared that..." or "What if..."
                 </p>
                 <textarea
                   value={fear}
                   onChange={(e) => setFear(e.target.value)}
-                  placeholder="Example: Looking like a fraud, being rejected, wasting time..."
+                  placeholder="Example: I'm terrified I'll work this hard and still not be good enough..."
                   className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   rows={3}
                 />
@@ -606,15 +665,18 @@ NO markdown, NO backticks, ONLY valid JSON array.`,
 
               <div>
                 <label className="block font-semibold text-gray-900 mb-2">
-                  3. The Real Prize (What feeling you're actually after)
+                  3. The Real Prize (Close your eyes - what do you feel?)
                 </label>
-                <p className="text-sm text-gray-600 mb-2">
-                  If you got The Goal, what would it FEEL like? Look deeper.
+                <p className="text-sm text-gray-600 mb-3">
+                  You have it. What do you see, hear, feel? Use sensory words - not what it IS, but what it FEELS like.
+                </p>
+                <p className="text-xs text-blue-600 mb-2 italic">
+                  💡 Try words like: calm, proud, free, safe, alive, seen, enough...
                 </p>
                 <textarea
                   value={prize}
                   onChange={(e) => setPrize(e.target.value)}
-                  placeholder="Example: Confident, worthy, free, secure, respected..."
+                  placeholder="Example: I feel proud when I walk into a room, like I finally matter..."
                   className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   rows={3}
                 />
@@ -711,7 +773,13 @@ NO markdown, NO backticks, ONLY valid JSON array.`,
                             {refined.confidence}% Confidence
                           </div>
                         </div>
-                        <p className="text-gray-700 leading-relaxed italic">"{refined.question}"</p>
+                        <p className="text-gray-700 leading-relaxed italic mb-3">"{refined.question}"</p>
+                        {/* 🆕 ADD THE "WHY" */}
+                        {refined.why && (
+                          <p className="text-sm text-gray-600 border-l-2 border-green-300 pl-3 italic">
+                            💡 {refined.why}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -767,6 +835,27 @@ NO markdown, NO backticks, ONLY valid JSON array.`,
                 <strong>About the scores:</strong> Confidence shows how well each approach fits your situation. 
                 AI pre-selected its top pick, but higher scores aren't always "better" - pick what resonates with YOUR gut.
               </p>
+            </div>
+
+            {/* 📖 GENIUS:60 Philosophy Explainer */}
+            <div className="bg-gradient-to-r from-amber-50 to-blue-50 border-l-4 border-blue-600 p-6 rounded-2xl space-y-3">
+              <h3 className="font-bold text-blue-900 flex items-center gap-2">
+                <Lightbulb className="w-5 h-5" />
+                From the GENIUS:60 Framework
+              </h3>
+              <div className="text-sm text-gray-700 space-y-2">
+                <p>
+                  <strong>You don't need the whole path.</strong> The formula itself creates the shift - 
+                  from <span className="line-through">{goal || "your goal"}</span> to "how I can feel {prize || "what I really want"}."
+                </p>
+                <p>
+                  <strong>Sometimes waiting IS movement.</strong> Conscious acceptance breaks inertia. 
+                  If a refinement says "it's okay to pause," that's not giving up - it's choosing clarity over chaos.
+                </p>
+                <p className="text-blue-800 font-semibold">
+                  💭 Read each refinement aloud. Which one makes you think: "OH... THAT'S what this is about"?
+                </p>
+              </div>
             </div>
 
             <button
@@ -1168,7 +1257,6 @@ Date: ${new Date().toLocaleDateString()}`)}
     </div>
   );
 }
-
 
 // Render the app
 const root = ReactDOM.createRoot(document.getElementById("root"));
