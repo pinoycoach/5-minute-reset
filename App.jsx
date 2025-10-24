@@ -47,6 +47,9 @@ function FiveMinuteResetUltimate() {
   // 🆕 COPY SUCCESS STATE
   const [showCopySuccess, setShowCopySuccess] = useState(false);
   
+  // 🆕 DISCLAIMER AGREEMENT
+  const [disclaimerAgreed, setDisclaimerAgreed] = useState(false);
+  
   // Loading states
   const [isGenerating, setIsGenerating] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -532,22 +535,18 @@ Use simple, clear language. No jargon.`,
             </div>
 
             <div className="text-center pt-4">
-              <label className="flex items-center justify-center gap-3 mb-6">
+              <label className="flex items-center justify-center gap-3 mb-6 cursor-pointer">
                 <input 
                   type="checkbox" 
-                  className="w-5 h-5 rounded border-gray-300"
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      document.getElementById('start-btn').disabled = false;
-                    }
-                  }}
+                  checked={disclaimerAgreed}
+                  onChange={(e) => setDisclaimerAgreed(e.target.checked)}
+                  className="w-5 h-5 rounded border-gray-300 cursor-pointer"
                 />
                 <span className="text-sm text-gray-700">I understand this is a reflection tool, not medical advice</span>
               </label>
 
               <button
-                id="start-btn"
-                disabled
+                disabled={!disclaimerAgreed}
                 onClick={startBrainDump}
                 className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-4 px-8 rounded-2xl shadow-lg transition-all text-lg transform hover:scale-[1.02]"
               >
