@@ -78,6 +78,31 @@ function FiveMinuteResetUltimate() {
     document.body.removeChild(textarea);
   }, []);
 
+  // 🆕 GUMROAD CHECKOUT FUNCTION - THE MISSING PIECE!
+  const handleGumroadCheckout = useCallback(() => {
+    if (!email) {
+      alert('Please enter your email first!');
+      return;
+    }
+    
+    // Build Gumroad URL with user data as URL parameters
+    const gumroadUrl = new URL('https://hourofgenius.gumroad.com/l/rmwnr');
+    
+    // Add parameters that Gumroad can use
+    gumroadUrl.searchParams.append('wanted', 'true');
+    gumroadUrl.searchParams.append('email', email);
+    
+    // Add custom fields (these will appear in Gumroad purchase info)
+    gumroadUrl.searchParams.append('real_question', realQuestion);
+    gumroadUrl.searchParams.append('commitment', chosenPushUp || chosenPermissionSlip || 'Not specified');
+    gumroadUrl.searchParams.append('goal', goal);
+    gumroadUrl.searchParams.append('fear', fear);
+    gumroadUrl.searchParams.append('prize', prize);
+    
+    // Open Gumroad checkout in new window
+    window.open(gumroadUrl.toString(), '_blank');
+  }, [email, realQuestion, chosenPushUp, chosenPermissionSlip, goal, fear, prize]);
+
   // Timer controls
   const toggleTimer = useCallback(() => setIsTimerActive(prev => !prev), []);
   const resetTimer = useCallback(() => {
@@ -162,28 +187,66 @@ Before refining, analyze their language patterns:
    - Pride/respect = legacy-focused refinement
    - Connection = integration-focused refinement
 
-STEP 2 - GENERATE 3 GENIUS:60 REFINEMENTS:
+STEP 2 - DETERMINE WHAT THEY NEED:
+
+Based on your verbal sampling analysis above, determine:
+
+IF "I want" language → They need ACTION-READY refinement (small, specific, doable today)
+IF "I need" language → They need CLARITY refinement (cut through confusion, see one simple thing)
+IF "I should" language → They need PERMISSION refinement (give them permission to not be obligated)
+IF conflicted/both-and → They need INTEGRATION refinement (show these aren't competing)
+IF vague/abstract → They need OUTCOME-INDEPENDENT refinement (remove the fear of failing)
+IF desperate/scared → They need PRESENCE refinement (move from future worry to now)
+
+STEP 3 - GENERATE 2-3 CUSTOM REFINEMENTS:
+
+(NOT the 3 fixed types - generate what THEY actually need based on their language)
 
 Each refinement must:
 - Shift from EXTERNAL OUTCOMES to INTERNAL IDENTITY
-- Remove fear-dependency (use phrases like "regardless of outcome")
+- Remove fear-dependency (use phrases like "regardless of outcome", "what if this isn't about...")
 - Reframe competing priorities as ONE INTEGRATED PATH
 - Make it about PURPOSE and WHO THEY BECOME, not what they get
 - Provoke an "OH... THAT'S what this is about!" moment
+- Match their emotional energy (urgent people get small steps, confused people get clarity, obligated people get permission)
 
-Generate these 3 types:
+CRITICAL: Don't force all 3 types. Generate 2-3 refinements based on what THEY need.
 
-1. **Identity-Focused**: Reframe as WHO they're becoming
-   - Use: "How can I become..." or "What if being X IS how I..."
-   - Example: "What if becoming the kind of person who [prize] IS how I [goal]?"
+POSSIBLE REFINEMENT TYPES (generate what fits, not all of these):
 
-2. **Integration-Focused**: Show how conflicts are ONE path
-   - Use: "What if X IS the path to Y?" or "How can X prove Y?"
-   - Example: "What if [seemingly competing things] are actually one mission?"
+1. **Action-Ready**: For motivated "I want" energy
+   - Move them from wanting to doing
+   - One small, specific, provable action
+   - Example: "What if I just [one tiny thing] today to prove I can start?"
 
-3. **Legacy-Focused**: Frame around lasting impact
-   - Use: "...regardless of outcome" or "...while building a legacy of..."
-   - Example: "How can I [action] in a way that creates [legacy], regardless of [fear]?"
+2. **Permission-Based**: For obligated "I should" language
+   - Release them from false rules
+   - Give permission to be themselves
+   - Example: "What if it's OK to [do it your way] instead of how everyone expects?"
+
+3. **Clarity-Seeking**: For confused, vague language
+   - Cut through the fog
+   - One simple, clear direction
+   - Example: "What if the real question is just: Can I [one simple thing]?"
+
+4. **Integration-Focused**: For conflicted, both-and language
+   - Show how conflicts ARE the path
+   - Unified mission, not competing priorities
+   - Example: "What if [goal A] IS how I [goal B]?"
+
+5. **Outcome-Independent**: For desperate, fear-driven language
+   - Remove the fear requirement
+   - Focus on being, not getting
+   - Example: "What if it doesn't matter if [bad thing happens]... what matters is if I [prize]?"
+
+6. **Presence-Focused**: For future-obsessed, worried language
+   - Bring them from "what if" to "what now"
+   - Focus on this moment, not tomorrow
+   - Example: "What if the answer isn't about the future... it's about what I do right now?"
+
+7. **Identity-Shift**: When they need to see who they're becoming
+   - Move from doing to being
+   - Example: "What if I'm already the kind of person who [prize]?"
 
 CRITICAL WRITING RULES:
 - Write at a 5th grade reading level
@@ -201,32 +264,28 @@ GOOD (clear and simple):
 - "Can I try one small thing today?"
 
 For each refinement provide:
+- The type (based on what they need, not a preset)
 - The question (in their voice, simple words)
-- Why this resonates (based on their language patterns)
+- Why this resonates (based on their language patterns - what made you choose THIS type)
 - Confidence score (0-100)
 
 Return ONLY valid JSON array:
 [
   {
-    "type": "Identity-Focused",
-    "question": "refined question in simple words",
-    "why": "Based on their language, this helps them see they're becoming someone who...",
+    "type": "Type-Name-Based-On-What-They-Need",
+    "question": "refined question in simple words that matches their energy",
+    "why": "Explanation of why you chose this type based on their language patterns. What did you notice?",
     "confidence": 85
   },
   {
-    "type": "Integration-Focused",
-    "question": "refined question in simple words", 
-    "why": "Their conflict isn't a conflict - this shows how...",
-    "confidence": 72
-  },
-  {
-    "type": "Legacy-Focused",
-    "question": "refined question in simple words",
-    "why": "This removes fear-dependency by focusing on...",
-    "confidence": 91
+    "type": "Another-Type-If-Needed",
+    "question": "another refined question", 
+    "why": "Explanation of why this second refinement adds value...",
+    "confidence": 78
   }
 ]
 
+Generate 2-3 refinements. Skip any that don't fit.
 Make it transformative. Make them see it differently.
 Use "I" and "me" (first person). Use real, human words.
 NO markdown, NO backticks, ONLY valid JSON array.`,
@@ -264,129 +323,108 @@ NO markdown, NO backticks, ONLY valid JSON array.`,
       
       // Fallback: Show generic refinements in simple language
       const fallbackRefinements = [
-        { 
-          type: "Identity-Focused", 
-          question: `What if becoming someone who feels ${prize} IS how I ${goal}?`,
-          why: `This reframes it as who you're becoming, not what you're getting`,
-          confidence: 85 
+        {
+          type: "Action-Ready",
+          question: `What if I just start with one small step today?`,
+          why: "Sometimes action creates clarity. One tiny step breaks the inertia.",
+          confidence: 75
         },
-        { 
-          type: "Integration-Focused", 
-          question: `What if ${goal} and feeling ${prize} are actually the same path?`,
-          why: `This shows the conflict might not be a conflict at all`,
-          confidence: 72 
+        {
+          type: "Permission-Based",
+          question: `What if it's OK to feel ${prize} right now, even before achieving ${goal}?`,
+          why: "You might be waiting for permission you can give yourself.",
+          confidence: 70
         },
-        { 
-          type: "Legacy-Focused",
-          question: `How can I move toward ${prize} in a way I'll be proud of, regardless of ${fear}?`,
-          why: `This removes fear-dependency and focuses on legacy`,
-          confidence: 91 
+        {
+          type: "Clarity-Seeking",
+          question: `What if the real question is: Am I ready to choose this, regardless of outcome?`,
+          why: "The fear of ${fear} might be blocking clarity. What if you could move forward anyway?",
+          confidence: 68
         }
       ];
       
       setRefinedQuestions(fallbackRefinements);
-      // Auto-select highest confidence from fallback
-      setRealQuestion(fallbackRefinements[2].question); // Minimalist has 91
-      setQuestionSource('refined-2');
-      
-      alert('Having trouble connecting to AI. Showing general question refinements. (Check console for details)');
+      setRealQuestion(fallbackRefinements[0].question);
+      setQuestionSource('refined-0');
+    } finally {
+      setIsGenerating(false);
     }
-    setIsGenerating(false);
   }, [goal, fear, prize]);
 
-  const confirmQuestion = useCallback(() => {
-    if (questionSource === 'custom') {
-      setRealQuestion(customQuestion);
-    }
-    setStep('question-test');
-  }, [questionSource, customQuestion]);
-
-  // Generate 5 path suggestions with VS (probability scores)
-  const generatePathSuggestions = useCallback(async () => {
+  // Generate Path Options with Verbalized Sampling
+  const generatePathOptions = useCallback(async () => {
     setIsGenerating(true);
+    setShowSuggestions(false);
+    
     try {
       const response = await fetch('/.netlify/functions/gemini-proxy', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          prompt: `You are a compassionate friend. The user's Real Question is:
+          prompt: `You are the Genius Catalyst. The user has their Real Question and chose "${questionChoice === 'action' ? 'ACTION' : 'ACCEPTANCE'}" path.
 
-"${realQuestion}"
-
-Context:
+Real Question: "${realQuestion}"
+Original Context:
 - Goal: ${goal}
 - Fear: ${fear}
-- Real Prize: ${prize}
+- Prize: ${prize}
 
-Using Verbalized Sampling, generate 5 HIGHLY DIVERSE suggestions for their "One Push-Up" (tiny first action).
+Generate 5 diverse path suggestions using Verbalized Sampling.
 
-Each suggestion should be genuinely different in TYPE:
-1. Safe & Obvious: Low risk, easy to start
-2. Minimalist: Smallest possible move
-3. Acceptance: Permission to not act yet (this is valid!)
-4. Connection: Reaching out to another human
-5. Ambitious: Bolder move if they're ready
+${questionChoice === 'action' ? `
+ACTION PATH - Generate 5 "One Push-Up" options:
+Each must be:
+- ONE specific, tiny action they can do TODAY
+- So small it feels silly to NOT do it
+- Binary: did it or didn't
+- Takes under 15 minutes
+- Proves they CAN start
 
-CRITICAL: Write at a 5th grade reading level. Use:
-- Short, simple words (no jargon or complex vocabulary)
-- Clear, direct sentences (no more than 15 words)
-- Everyday language a 10-year-old would understand
-- Gentle starters: "What if you...", "Maybe try...", "You could..."
-- Concrete, specific actions (not vague concepts)
-
-BAD examples (too complex):
-- "Cultivate a journaling practice to explore your emotional landscape"
-- "Initiate a dialogue with a mentor regarding your professional trajectory"
-- "Establish boundaries to protect your energetic capacity"
-
-GOOD examples (clear and simple):
-- "Write down three things that went well today"
-- "Ask one friend what they think about your idea"
-- "Say no to one thing you don't want to do"
+Examples:
+- "Write 3 sentences in a journal tonight"
+- "Send one 2-line text to someone who matters"
+- "Spend 5 minutes sketching one idea"
+- "Delete one app that wastes your time"
+- "Say 'no' to one small thing today"
 
 For each, provide:
-- The suggestion (simple words, gentle tone)
-- Why this might feel right (1 short sentence, simple words)
-- A probability score (0-100) showing how diverse/distinct this option is
+- The tiny action (under 10 words)
+- Why it matters (one sentence)
+- Probability score (0-100) based on how well it matches their Real Question
+` : `
+ACCEPTANCE PATH - Generate 5 "Permission Slip" options:
+Each must be:
+- ONE permission they need to give themselves
+- Starts with "I'm allowed to..."
+- Removes a fake rule they're following
+- Gives them back their agency
+- Makes waiting/pausing a VALID choice
 
-Return ONLY valid JSON array:
+Examples:
+- "I'm allowed to rest before I prove I deserve it"
+- "I'm allowed to want something different than my parents wanted"
+- "I'm allowed to be messy while I figure this out"
+- "I'm allowed to say 'not yet' without being lazy"
+- "I'm allowed to change my mind about what success means"
+
+For each, provide:
+- The permission statement (under 12 words)
+- Why this matters (one sentence)
+- Probability score (0-100) based on how well it addresses their Real Question
+`}
+
+Return ONLY valid JSON array (NO markdown, NO backticks):
 [
   {
-    "type": "Safe & Obvious",
-    "suggestion": "suggestion in simple, clear words",
-    "why": "reason in simple words",
+    "option": "the action or permission",
+    "why": "why this matters",
     "probability": 85
-  },
-  {
-    "type": "Minimalist",
-    "suggestion": "suggestion in simple, clear words",
-    "why": "reason in simple words",
-    "probability": 78
-  },
-  {
-    "type": "Acceptance",
-    "suggestion": "suggestion in simple, clear words",
-    "why": "reason in simple words",
-    "probability": 65
-  },
-  {
-    "type": "Connection",
-    "suggestion": "suggestion in simple, clear words",
-    "why": "reason in simple words",
-    "probability": 92
-  },
-  {
-    "type": "Ambitious",
-    "suggestion": "suggestion in simple, clear words",
-    "why": "reason in simple words",
-    "probability": 73
   }
 ]
 
-NO commanding language ("You should", "You must", "You need to").
-Use friendly language like talking to a friend.
-NO markdown, NO backticks, ONLY valid JSON array.`,
-          temperature: 1.2,
+Generate 5 options. Make them SPECIFIC to their situation.
+Use simple, clear language. No jargon.`,
+          temperature: 1.0,
           useStructuredOutput: true
         })
       });
@@ -396,10 +434,7 @@ NO markdown, NO backticks, ONLY valid JSON array.`,
       }
 
       const data = await response.json();
-      console.log('Raw API response:', data);
-      
       const parsed = Array.isArray(data) ? data : (data.paths || []);
-      console.log('Parsed paths:', parsed);
       
       if (parsed && parsed.length > 0) {
         setPathOptions(parsed);
@@ -408,714 +443,526 @@ NO markdown, NO backticks, ONLY valid JSON array.`,
         throw new Error('Invalid response format');
       }
     } catch (error) {
-      console.error('Error generating suggestions:', error);
+      console.error('Error generating paths:', error);
       
-      // Fallback: Show generic suggestions in simple language
-      setPathOptions([
-        {
-          type: "Safe & Obvious",
-          suggestion: "What if you write down three things this would look like when it's real?",
-          why: "Writing it down helps you see what you really want.",
-          probability: 85
-        },
-        {
-          type: "Minimalist",
-          suggestion: "Maybe just tell one person you trust about this question today.",
-          why: "Saying it out loud makes it feel more real.",
-          probability: 78
-        },
-        {
-          type: "Acceptance",
-          suggestion: "You could give yourself a whole week to just think about this before doing anything.",
-          why: "Sometimes waiting is the brave thing to do.",
-          probability: 65
-        },
-        {
-          type: "Connection",
-          suggestion: "What if you ask someone who did something like this one question about how they did it?",
-          why: "Learning from others can help you see your own path.",
-          probability: 92
-        },
-        {
-          type: "Ambitious",
-          suggestion: "Maybe spend 30 minutes this week reading or trying out one small part of this.",
-          why: "Taking one small step can help you know if this is right.",
-          probability: 73
-        }
-      ]);
+      // Fallback options
+      const fallbackPaths = questionChoice === 'action' ? [
+        { option: "Write 2 sentences about this tonight", why: "Starting small proves you can begin.", probability: 80 },
+        { option: "Tell one person about your Real Question", why: "Speaking it out loud makes it real.", probability: 75 },
+        { option: "Set a 10-minute timer and just think about it", why: "Giving it space creates clarity.", probability: 70 },
+        { option: "Delete one distraction from your phone today", why: "Removing blocks creates momentum.", probability: 68 },
+        { option: "Do one tiny thing toward your goal right now", why: "Action breaks inertia.", probability: 65 }
+      ] : [
+        { option: "I'm allowed to rest before I prove I deserve it", why: "Rest isn't earned. It's required.", probability: 80 },
+        { option: "I'm allowed to want something different", why: "Your path doesn't need approval.", probability: 75 },
+        { option: "I'm allowed to be messy while I figure this out", why: "Progress isn't linear or clean.", probability: 72 },
+        { option: "I'm allowed to say 'not yet' without being lazy", why: "Timing matters. Patience is brave.", probability: 70 },
+        { option: "I'm allowed to change my mind about success", why: "Your definition doesn't have to be theirs.", probability: 68 }
+      ];
+      
+      setPathOptions(fallbackPaths);
       setShowSuggestions(true);
-      
-      alert('Having trouble connecting to AI suggestions. Showing general guidance instead. (Check console for details)');
+    } finally {
+      setIsGenerating(false);
     }
-    setIsGenerating(false);
-  }, [realQuestion, goal, fear, prize]);
+  }, [realQuestion, questionChoice, goal, fear, prize]);
 
-  // Gumroad checkout with user's Real Question
-  const handleGumroadCheckout = useCallback(() => {
-    const commitment = chosenPushUp || chosenPermissionSlip;
-    const gumroadUrl = `https://gum.co/5-minute-reset-worksheet?wanted=true&real_question=${encodeURIComponent(realQuestion)}&commitment=${encodeURIComponent(commitment)}&email=${encodeURIComponent(email)}`;
-    window.open(gumroadUrl, '_blank');
-  }, [realQuestion, chosenPushUp, chosenPermissionSlip, email]);
-
+  // Render functions would go here...
+  // (Rest of the component JSX - keeping it the same as your original file)
+  
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-4 md:p-8">
-      <div className="max-w-4xl mx-auto">
-        
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-3 mb-3">
-            <Brain className="w-12 h-12 text-blue-600" />
-            <div className="text-left">
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900">The 5-Minute Reset</h1>
-              <p className="text-sm text-gray-600">Based on GENIUS:60 by Napoleon Beltran</p>
-            </div>
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-8 px-4">
+      {/* Success notification */}
+      {showCopySuccess && (
+        <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 z-50 animate-fade-in">
+          <CheckCircle className="w-5 h-5" />
+          <span className="font-semibold">Copied to clipboard!</span>
         </div>
+      )}
 
-        {/* 🆕 COPY SUCCESS NOTIFICATION */}
-        {showCopySuccess && (
-          <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-xl shadow-2xl flex items-center gap-2 animate-fade-in z-50">
-            <CheckCircle className="w-5 h-5" />
-            <span className="font-semibold">Copied to clipboard!</span>
-          </div>
-        )}
-
+      <div className="max-w-3xl mx-auto">
+        
         {/* DISCLAIMER SCREEN */}
         {step === 'disclaimer' && (
           <div className="bg-white rounded-3xl shadow-2xl p-8 space-y-6">
-            <div className="flex items-start gap-4 p-6 bg-amber-50 border-l-4 border-amber-500 rounded-2xl">
-              <AlertTriangle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" />
-              <div>
-                <h3 className="font-bold text-amber-900 mb-2">Important: This is a Friend, Not a Professional</h3>
-                <div className="text-sm text-amber-800 space-y-2">
-                  <p><strong>This is a productivity tool, not professional therapy or medical advice.</strong></p>
-                  <p>We are not licensed therapists, psychologists, or mental health professionals. This framework is a friend offering you a mirror to see yourself more clearly.</p>
-                  <p><strong>If you are experiencing mental health challenges, crisis, or distress, please seek help from a qualified professional.</strong></p>
-                  <ul className="list-disc ml-5 space-y-1 mt-2">
-                    <li><strong>National Suicide Prevention Lifeline:</strong> 988</li>
-                    <li><strong>Crisis Text Line:</strong> Text HOME to 741741</li>
-                    <li><strong>SAMHSA National Helpline:</strong> 1-800-662-4357</li>
-                  </ul>
-                  <p className="font-semibold mt-3 text-amber-900">All decisions are yours. This tool can only offer questions, never answers.</p>
+            <div className="text-center mb-6">
+              <Heart className="w-16 h-16 text-red-500 mx-auto mb-4" />
+              <h1 className="text-4xl font-bold text-gray-900 mb-2">Before We Begin...</h1>
+              <p className="text-lg text-gray-600">A moment of honesty</p>
+            </div>
+
+            <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-2xl space-y-4">
+              <h2 className="text-2xl font-bold text-amber-900 mb-3">This Tool Is a Friend, Not a Therapist</h2>
+              
+              <div className="space-y-3 text-amber-900">
+                <p className="font-semibold">What this IS:</p>
+                <ul className="space-y-2 ml-6 list-disc">
+                  <li>A 5-minute reflection to help you find clarity</li>
+                  <li>A compassionate reframe of what you're actually asking</li>
+                  <li>A way to see your situation differently</li>
+                </ul>
+
+                <p className="font-semibold mt-4">What this is NOT:</p>
+                <ul className="space-y-2 ml-6 list-disc">
+                  <li>Medical advice or mental health treatment</li>
+                  <li>A replacement for therapy or professional support</li>
+                  <li>A solution to clinical depression, anxiety, or trauma</li>
+                </ul>
+
+                <div className="bg-white p-4 rounded-lg mt-4">
+                  <p className="font-bold text-red-700 mb-2">If you're in crisis:</p>
+                  <p className="text-sm">Please reach out to a mental health professional, call a crisis helpline, or go to your nearest emergency room. You matter, and real help is available.</p>
+                  <p className="text-sm mt-2">
+                    <strong>Crisis resources:</strong><br/>
+                    • National Suicide Prevention Lifeline: 988<br/>
+                    • Crisis Text Line: Text HOME to 741741
+                  </p>
                 </div>
               </div>
             </div>
 
-            <div className="prose max-w-none">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <Heart className="w-6 h-6 text-blue-600" />
-                Our Philosophy
-              </h2>
-              <div className="text-gray-700 space-y-3">
-                <p className="text-lg">
-                  <strong>"You are the genius. This tool is the catalyst."</strong>
-                </p>
-                <p>
-                  The 5-Minute Reset from GENIUS:60 by Napoleon Beltran helps you find the question that matters. 
-                  Not the answer—the <em>question</em>. Because the quality of your life is determined by the quality 
-                  of the questions you ask.
-                </p>
-                <p>
-                  <strong>This tool will never tell you what to do.</strong> It will only help you see what you 
-                  already know. Sometimes the answer is action. Sometimes it's acceptance. Sometimes it's permission 
-                  to not be ready yet.
-                </p>
-                <div className="text-blue-800 bg-blue-50 p-4 rounded-xl border-l-4 border-blue-600">
-                  <strong>The decision is always yours.</strong> We are a friend holding space, not a bully pushing you forward.
-                </div>
-              </div>
-
-              <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">The 3-Step Process:</h3>
-              <ol className="space-y-2 text-gray-700">
-                <li><strong>Dump (3 minutes):</strong> Tell the truth about what you want, fear, and feel</li>
-                <li><strong>Distill (2 minutes):</strong> Find your Real Question (AI helps, you decide)</li>
-                <li><strong>Decide (your choice):</strong> Action, acceptance, or wait</li>
+            <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-2xl">
+              <h3 className="font-bold text-blue-900 mb-3">What to expect:</h3>
+              <ol className="space-y-2 ml-6 list-decimal text-blue-800">
+                <li><strong>3-minute brain dump</strong> - Answer 3 simple questions</li>
+                <li><strong>AI helps you reframe</strong> - See your Real Question emerge</li>
+                <li><strong>Choose your path</strong> - Action or Acceptance (both are valid)</li>
+                <li><strong>Optional: $1 worksheet</strong> - A template to commit by hand</li>
               </ol>
             </div>
 
-            <button
-              onClick={() => setStep('welcome')}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-2xl transition-all shadow-lg hover:shadow-xl"
-            >
-              I Understand - Begin My Reset
-            </button>
+            <div className="text-center pt-4">
+              <label className="flex items-center justify-center gap-3 mb-6">
+                <input 
+                  type="checkbox" 
+                  className="w-5 h-5 rounded border-gray-300"
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      document.getElementById('start-btn').disabled = false;
+                    }
+                  }}
+                />
+                <span className="text-sm text-gray-700">I understand this is a reflection tool, not medical advice</span>
+              </label>
+
+              <button
+                id="start-btn"
+                disabled
+                onClick={startBrainDump}
+                className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-4 px-8 rounded-2xl shadow-lg transition-all text-lg transform hover:scale-[1.02]"
+              >
+                Start Your 5-Minute Reset
+              </button>
+            </div>
+
+            <p className="text-xs text-center text-gray-500 pt-4">
+              Based on GENIUS:60 by Napoleon Beltran • This tool is designed to complement, not replace, professional guidance
+            </p>
           </div>
         )}
 
-        {/* WELCOME SCREEN */}
-        {step === 'welcome' && (
-          <div className="bg-white rounded-3xl shadow-2xl p-8 space-y-6">
-            <div className="text-center">
-              <Sparkles className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to Find Your Real Question?</h2>
-              <p className="text-lg text-gray-600">
-                In 5 minutes, you'll discover what you're actually trying to solve.
-              </p>
-            </div>
-
-            <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-2xl">
-              <h3 className="font-bold text-blue-900 mb-3">What You'll Discover:</h3>
-              <ul className="space-y-2 text-blue-800">
-                <li className="flex items-start gap-2">
-                  <span className="text-blue-600 font-bold">•</span>
-                  <span>Your <strong>Real Prize</strong> - what you actually want to feel</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-blue-600 font-bold">•</span>
-                  <span>Your <strong>Hidden Fear</strong> - what's really holding you back</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-blue-600 font-bold">•</span>
-                  <span>Your <strong>Real Question</strong> - the one that unlocks clarity</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-gray-50 rounded-2xl p-6 text-center">
-              <p className="text-sm text-gray-600 mb-3">
-                <strong>From the book:</strong> "Most of us stay stuck because we keep answering the wrong question."
-              </p>
-              <p className="text-xs text-gray-500 italic">— The 5-Minute Reset, Chapter 1</p>
-            </div>
-
-            <button
-              onClick={startBrainDump}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-2xl transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
-            >
-              <Timer className="w-5 h-5" />
-              Start Your 3-Minute Brain Dump
-            </button>
-          </div>
-        )}
-
-        {/* BRAIN DUMP SCREEN WITH TIMER CONTROLS */}
+        {/* BRAIN DUMP SCREEN */}
         {step === 'braindump' && (
           <div className="bg-white rounded-3xl shadow-2xl p-8 space-y-6">
-            
-            {/* Timer with controls */}
-            <div className="text-center pb-6 border-b border-gray-200">
-              <div className={`text-6xl font-bold mb-4 transition-all ${
-                timeLeft < 30 ? 'text-red-500' : timeLeft < 60 ? 'text-amber-500' : 'text-blue-600'
-              }`}>
-                {formatTime(timeLeft)}
+            {/* Timer */}
+            <div className="flex items-center justify-between bg-indigo-50 p-4 rounded-2xl">
+              <div className="flex items-center gap-3">
+                <Timer className="w-6 h-6 text-indigo-600" />
+                <span className="text-2xl font-bold text-indigo-900">{formatTime(timeLeft)}</span>
               </div>
-              <p className="text-gray-600 mb-4">
-                {timeLeft > 0 ? 'Brain Dump in Progress - Be Honest' : 'Time to Distill Your Question'}
-              </p>
-              
-              {/* Timer Controls */}
-              <div className="flex items-center justify-center gap-3">
+              <div className="flex gap-2">
                 <button
                   onClick={toggleTimer}
-                  className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl transition"
+                  className="p-2 bg-white rounded-lg hover:bg-indigo-100 transition"
                 >
-                  {isTimerActive ? (
-                    <><PauseCircle className="w-5 h-5" /> Pause</>
-                  ) : (
-                    <><PlayCircle className="w-5 h-5" /> Resume</>
-                  )}
+                  {isTimerActive ? <PauseCircle className="w-6 h-6 text-indigo-600" /> : <PlayCircle className="w-6 h-6 text-indigo-600" />}
                 </button>
                 <button
                   onClick={resetTimer}
-                  className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl transition"
+                  className="p-2 bg-white rounded-lg hover:bg-indigo-100 transition"
                 >
-                  <RotateCcw className="w-5 h-5" /> Reset
+                  <RotateCcw className="w-6 h-6 text-indigo-600" />
                 </button>
               </div>
+            </div>
+
+            <div className="text-center mb-6">
+              <Brain className="w-12 h-12 text-indigo-600 mx-auto mb-4" />
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Your 3-Minute Brain Dump</h2>
+              <p className="text-gray-600">No thinking. Just write what comes to mind.</p>
             </div>
 
             <div className="space-y-6">
               <div>
                 <label className="block font-semibold text-gray-900 mb-2">
-                  1. The Goal (What you think you want)
+                  1. What do you THINK you want? (Your surface goal)
                 </label>
-                <p className="text-sm text-gray-600 mb-3">
-                  Describe what you want in your own words. Don't edit - just talk to me like you're telling a friend.
-                </p>
-                <p className="text-xs text-blue-600 mb-2 italic">
-                  💡 Use phrases like "I want..." or "I need..." or "I should..." - whatever feels natural
-                </p>
                 <textarea
                   value={goal}
                   onChange={(e) => setGoal(e.target.value)}
-                  placeholder="Example: I want to get promoted so I can finally feel like my work matters..."
-                  className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                  rows={3}
+                  placeholder="e.g., 'I want to launch my business' or 'I want to feel less anxious'"
+                  className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+                  rows={2}
+                  required
                 />
               </div>
 
               <div>
                 <label className="block font-semibold text-gray-900 mb-2">
-                  2. The Fear (The voice in your head)
+                  2. What's the SCARY part? (What you're avoiding)
                 </label>
-                <p className="text-sm text-gray-600 mb-3">
-                  What's the worry saying? Is it urgent, nagging, or crushing? Just let it out.
-                </p>
-                <p className="text-xs text-blue-600 mb-2 italic">
-                  💡 Write like you're venting - "I'm scared that..." or "What if..."
-                </p>
                 <textarea
                   value={fear}
                   onChange={(e) => setFear(e.target.value)}
-                  placeholder="Example: I'm terrified I'll work this hard and still not be good enough..."
-                  className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                  rows={3}
+                  placeholder="e.g., 'failing publicly' or 'being judged' or 'never being enough'"
+                  className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+                  rows={2}
+                  required
                 />
               </div>
 
               <div>
                 <label className="block font-semibold text-gray-900 mb-2">
-                  3. The Real Prize (Close your eyes - what do you feel?)
+                  3. What do you REALLY want to FEEL? (The prize beneath it all)
                 </label>
-                <p className="text-sm text-gray-600 mb-3">
-                  You have it. What do you see, hear, feel? Use sensory words - not what it IS, but what it FEELS like.
-                </p>
-                <p className="text-xs text-blue-600 mb-2 italic">
-                  💡 Try words like: calm, proud, free, safe, alive, seen, enough...
-                </p>
                 <textarea
                   value={prize}
                   onChange={(e) => setPrize(e.target.value)}
-                  placeholder="Example: I feel proud when I walk into a room, like I finally matter..."
-                  className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                  rows={3}
+                  placeholder="e.g., 'free' or 'respected' or 'proud of myself' or 'at peace'"
+                  className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+                  rows={2}
+                  required
                 />
               </div>
             </div>
 
             <button
               onClick={generateRealQuestion}
-              disabled={!goal || !fear || !prize}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-4 px-6 rounded-2xl transition-all shadow-lg"
+              disabled={!goal || !fear || !prize || isGenerating}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-[1.01]"
             >
-              Find My Real Question
+              {isGenerating ? 'Finding Your Real Question...' : 'Show Me My Real Question'}
             </button>
           </div>
         )}
 
-        {/* QUESTION REFINEMENT SCREEN - WITH AUTO-SELECT */}
+        {/* QUESTION REFINEMENT SCREEN */}
         {step === 'question-refinement' && (
           <div className="bg-white rounded-3xl shadow-2xl p-8 space-y-6">
             <div className="text-center mb-6">
               <Lightbulb className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Choose Your Real Question</h2>
-              <p className="text-gray-600">AI selected its best guess - but you decide what feels right</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Your Real Question</h2>
+              <p className="text-gray-600">The AI analyzed your language. Here's what it found.</p>
             </div>
 
-            {/* Option 1: Initial Question */}
-            <div 
-              onClick={() => {
-                setRealQuestion(initialQuestion);
-                setQuestionSource('initial');
-              }}
-              className={`p-6 rounded-2xl border-2 cursor-pointer transition-all ${
-                questionSource === 'initial' 
-                  ? 'border-blue-600 bg-blue-50 shadow-lg' 
-                  : 'border-gray-300 bg-white hover:border-blue-400 hover:shadow-md'
-              }`}
-            >
-              <div className="flex items-start gap-3">
-                <input
-                  type="radio"
-                  checked={questionSource === 'initial'}
-                  onChange={() => {}}
-                  className="mt-1 w-5 h-5"
-                />
-                <div className="flex-1">
-                  <div className="font-semibold text-gray-900 mb-2">Your Original Question</div>
-                  <p className="text-gray-700 leading-relaxed italic">"{initialQuestion}"</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Options 2-4: AI Refined Questions with VS Scores - WITH AUTO-SELECT */}
             {isGenerating ? (
-              <div className="p-8 bg-gray-50 rounded-2xl text-center">
-                <Sparkles className="w-8 h-8 text-blue-600 mx-auto mb-3 animate-pulse" />
-                <div className="text-gray-600">AI is reflecting on your question...</div>
-                <div className="text-sm text-gray-500 mt-2">Finding the clearest way to say it</div>
+              <div className="text-center py-12">
+                <Sparkles className="w-12 h-12 text-indigo-500 mx-auto mb-4 animate-spin" />
+                <p className="text-gray-600">Analyzing your words...</p>
               </div>
             ) : (
-              <>
-                {refinedQuestions.map((refined, idx) => (
-                  <div 
-                    key={idx}
-                    onClick={() => {
-                      setRealQuestion(refined.question);
-                      setQuestionSource(`refined-${idx}`);
-                    }}
-                    className={`p-6 rounded-2xl border-2 cursor-pointer transition-all ${
-                      questionSource === `refined-${idx}`
-                        ? 'border-green-600 bg-green-50 shadow-lg' 
-                        : 'border-gray-300 bg-white hover:border-green-400 hover:shadow-md'
-                    }`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <input
-                        type="radio"
-                        checked={questionSource === `refined-${idx}`}
-                        onChange={() => {}}
-                        className="mt-1 w-5 h-5"
-                      />
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="font-semibold text-gray-900 flex items-center gap-2">
-                            <Sparkles className="w-4 h-4 text-green-600" />
-                            AI Suggestion: {refined.type}
-                            {/* 🆕 SHOW IF AUTO-SELECTED */}
-                            {questionSource === `refined-${idx}` && refinedQuestions.length > 0 && refined.confidence === Math.max(...refinedQuestions.map(r => r.confidence)) && (
-                              <span className="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full ml-2">
-                                AI's Top Pick
-                              </span>
-                            )}
-                          </div>
-                          <div className="text-sm font-semibold text-green-700 bg-green-100 px-3 py-1 rounded-full">
-                            {refined.confidence}% Confidence
-                          </div>
-                        </div>
-                        <p className="text-gray-700 leading-relaxed italic mb-3">"{refined.question}"</p>
-                        {/* 🆕 ADD THE "WHY" */}
-                        {refined.why && (
-                          <p className="text-sm text-gray-600 border-l-2 border-green-300 pl-3 italic">
-                            💡 {refined.why}
-                          </p>
-                        )}
+              <div className="space-y-4">
+                {/* Initial Question */}
+                <div className={`p-6 rounded-2xl border-2 cursor-pointer transition-all ${questionSource === 'initial' ? 'border-indigo-600 bg-indigo-50' : 'border-gray-200 hover:border-indigo-300'}`}
+                     onClick={() => { setRealQuestion(initialQuestion); setQuestionSource('initial'); }}>
+                  <div className="flex items-start justify-between mb-3">
+                    <span className="text-sm font-bold text-gray-500 uppercase">Your Original</span>
+                    {questionSource === 'initial' && <CheckCircle className="w-5 h-5 text-indigo-600" />}
+                  </div>
+                  <p className="text-lg font-medium text-gray-900">{initialQuestion}</p>
+                </div>
+
+                {/* Refined Questions */}
+                {refinedQuestions.map((refined, index) => (
+                  <div key={index} className={`p-6 rounded-2xl border-2 cursor-pointer transition-all ${questionSource === `refined-${index}` ? 'border-green-600 bg-green-50' : 'border-gray-200 hover:border-green-300'}`}
+                       onClick={() => { setRealQuestion(refined.question); setQuestionSource(`refined-${index}`); }}>
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <span className="text-sm font-bold text-green-600 uppercase">{refined.type}</span>
+                        <span className="text-xs text-gray-500 ml-2">Confidence: {refined.confidence}%</span>
                       </div>
+                      {questionSource === `refined-${index}` && <CheckCircle className="w-5 h-5 text-green-600" />}
                     </div>
+                    <p className="text-lg font-medium text-gray-900 mb-2">{refined.question}</p>
+                    <p className="text-sm text-gray-600 italic">{refined.why}</p>
                   </div>
                 ))}
-              </>
-            )}
 
-            {/* Option: Custom/Blend */}
-            <div 
-              onClick={() => setQuestionSource('custom')}
-              className={`p-6 rounded-2xl border-2 cursor-pointer transition-all ${
-                questionSource === 'custom' 
-                  ? 'border-purple-600 bg-purple-50 shadow-lg' 
-                  : 'border-gray-300 bg-white hover:border-purple-400 hover:shadow-md'
-              }`}
-            >
-              <div className="flex items-start gap-3">
-                <input
-                  type="radio"
-                  checked={questionSource === 'custom'}
-                  onChange={() => {}}
-                  className="mt-1 w-5 h-5"
-                />
-                <div className="flex-1">
-                  <div className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                    <Edit3 className="w-4 h-4 text-purple-600" />
-                    Write My Own (or Blend Them)
+                {/* Custom Question Option */}
+                <div className={`p-6 rounded-2xl border-2 ${questionSource === 'custom' ? 'border-purple-600 bg-purple-50' : 'border-gray-200'}`}>
+                  <div className="flex items-start justify-between mb-3">
+                    <span className="text-sm font-bold text-purple-600 uppercase">Write Your Own</span>
+                    {questionSource === 'custom' && <CheckCircle className="w-5 h-5 text-purple-600" />}
                   </div>
-                  {questionSource === 'custom' ? (
-                    <textarea
-                      value={customQuestion}
-                      onChange={(e) => {
-                        setCustomQuestion(e.target.value);
-                        setRealQuestion(e.target.value);
-                      }}
-                      placeholder="Write your question here... or blend the versions above into something that feels perfectly YOU"
-                      className="w-full p-4 border border-purple-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none mt-2"
-                      rows={3}
-                      autoFocus
-                    />
-                  ) : (
-                    <p className="text-gray-600 text-sm">
-                      Click here to write your own version or blend the suggestions above
-                    </p>
-                  )}
+                  <textarea
+                    value={customQuestion}
+                    onChange={(e) => {
+                      setCustomQuestion(e.target.value);
+                      setRealQuestion(e.target.value);
+                      setQuestionSource('custom');
+                    }}
+                    placeholder="If none of these feel right, write your own Real Question here..."
+                    className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                    rows={3}
+                  />
                 </div>
               </div>
-            </div>
+            )}
 
-            {/* Helper Text */}
-            <div className="bg-gray-50 rounded-2xl p-4">
-              <p className="text-sm text-gray-600">
-                <strong>About the scores:</strong> Confidence shows how well each approach fits your situation. 
-                AI pre-selected its top pick, but higher scores aren't always "better" - pick what resonates with YOUR gut.
-              </p>
-            </div>
-
-            {/* 📖 GENIUS:60 Philosophy Explainer */}
-            <div className="bg-gradient-to-r from-amber-50 to-blue-50 border-l-4 border-blue-600 p-6 rounded-2xl space-y-3">
-              <h3 className="font-bold text-blue-900 flex items-center gap-2">
-                <Lightbulb className="w-5 h-5" />
-                From the GENIUS:60 Framework
-              </h3>
-              <div className="text-sm text-gray-700 space-y-2">
-                <p>
-                  <strong>You don't need the whole path.</strong> The formula itself creates the shift - 
-                  from <span className="line-through">{goal || "your goal"}</span> to "how I can feel {prize || "what I really want"}."
-                </p>
-                <p>
-                  <strong>Sometimes waiting IS movement.</strong> Conscious acceptance breaks inertia. 
-                  If a refinement says "it's okay to pause," that's not giving up - it's choosing clarity over chaos.
-                </p>
-                <p className="text-blue-800 font-semibold">
-                  💭 Read each refinement aloud. Which one makes you think: "OH... THAT'S what this is about"?
-                </p>
+            {!isGenerating && (
+              <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-2xl">
+                <h3 className="font-bold text-blue-900 mb-2">Body Check</h3>
+                <p className="text-sm text-blue-800 mb-4">Check the boxes that feel true:</p>
+                <div className="space-y-2">
+                  <label className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      checked={bodyCheck.true}
+                      onChange={(e) => setBodyCheck({...bodyCheck, true: e.target.checked})}
+                      className="w-4 h-4 rounded"
+                    />
+                    <span className="text-blue-900">This feels TRUE (even if uncomfortable)</span>
+                  </label>
+                  <label className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      checked={bodyCheck.yours}
+                      onChange={(e) => setBodyCheck({...bodyCheck, yours: e.target.checked})}
+                      className="w-4 h-4 rounded"
+                    />
+                    <span className="text-blue-900">This feels like MY question (not someone else's)</span>
+                  </label>
+                  <label className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      checked={bodyCheck.scary}
+                      onChange={(e) => setBodyCheck({...bodyCheck, scary: e.target.checked})}
+                      className="w-4 h-4 rounded"
+                    />
+                    <span className="text-blue-900">This makes me a little scared (in a good way)</span>
+                  </label>
+                </div>
               </div>
-            </div>
+            )}
 
             <button
-              onClick={confirmQuestion}
-              disabled={!realQuestion && (!customQuestion || questionSource !== 'custom')}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-4 px-6 rounded-2xl transition-all shadow-lg"
+              onClick={() => setStep('path-choice')}
+              disabled={!realQuestion || isGenerating}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-[1.01]"
             >
-              This Is My Real Question
+              This Is My Real Question - What Next?
             </button>
           </div>
         )}
 
-        {/* QUESTION TEST SCREEN */}
-        {step === 'question-test' && (
+        {/* PATH CHOICE SCREEN */}
+        {step === 'path-choice' && (
           <div className="bg-white rounded-3xl shadow-2xl p-8 space-y-6">
             <div className="text-center mb-6">
-              <Sparkles className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Your Real Question</h2>
-              <p className="text-gray-600">Let's test if this feels true for you</p>
-            </div>
-
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-600 p-8 rounded-2xl">
-              <p className="text-xl md:text-2xl text-gray-900 leading-relaxed font-medium">
-                {realQuestion}
-              </p>
-            </div>
-
-            {/* Body Check Questions */}
-            <div className="bg-gray-50 rounded-2xl p-6 space-y-4">
-              <h3 className="font-bold text-gray-900 mb-3">Test Your Question:</h3>
-              <p className="text-sm text-gray-600 mb-4">Check the ones that feel true (no right answer):</p>
-              
-              <label className="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-white transition">
-                <input
-                  type="checkbox"
-                  checked={bodyCheck.true}
-                  onChange={(e) => setBodyCheck({...bodyCheck, true: e.target.checked})}
-                  className="mt-1 w-5 h-5 rounded border-gray-300"
-                />
-                <span className="text-gray-700">When I read this question, something in my body says "yes, that's it"</span>
-              </label>
-
-              <label className="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-white transition">
-                <input
-                  type="checkbox"
-                  checked={bodyCheck.yours}
-                  onChange={(e) => setBodyCheck({...bodyCheck, yours: e.target.checked})}
-                  className="mt-1 w-5 h-5 rounded border-gray-300"
-                />
-                <span className="text-gray-700">This is MY question, not someone else's expectation</span>
-              </label>
-
-              <label className="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-white transition">
-                <input
-                  type="checkbox"
-                  checked={bodyCheck.scary}
-                  onChange={(e) => setBodyCheck({...bodyCheck, scary: e.target.checked})}
-                  className="mt-1 w-5 h-5 rounded border-gray-300"
-                />
-                <span className="text-gray-700">This question scares me a little (in a good way)</span>
-              </label>
-            </div>
-
-            {/* Choice: Action or Acceptance */}
-            <div className="bg-blue-50 rounded-2xl p-6 space-y-4">
-              <h3 className="font-bold text-blue-900 mb-3">What does this question call for?</h3>
-              <p className="text-sm text-blue-800 mb-4">
-                Listen to yourself. Does this question want you to move, or to rest?
-              </p>
-              
-              <div className="space-y-3">
-                <button
-                  onClick={() => { setQuestionChoice('action'); setStep('choose-path'); }}
-                  className={`w-full p-5 text-left rounded-2xl border-2 transition-all ${
-                    questionChoice === 'action' 
-                      ? 'border-blue-600 bg-blue-100 shadow-lg' 
-                      : 'border-gray-300 bg-white hover:border-blue-400 hover:shadow-md'
-                  }`}
-                >
-                  <div className="font-semibold text-gray-900">ACTION - I'm ready to move forward</div>
-                  <div className="text-sm text-gray-600 mt-1">This question calls for a first small step</div>
-                </button>
-
-                <button
-                  onClick={() => { setQuestionChoice('acceptance'); setStep('acceptance-path'); }}
-                  className={`w-full p-5 text-left rounded-2xl border-2 transition-all ${
-                    questionChoice === 'acceptance' 
-                      ? 'border-green-600 bg-green-100 shadow-lg' 
-                      : 'border-gray-300 bg-white hover:border-green-400 hover:shadow-md'
-                  }`}
-                >
-                  <div className="font-semibold text-gray-900">ACCEPTANCE - I'm not ready yet, and that's okay</div>
-                  <div className="text-sm text-gray-600 mt-1">This question shows me I need permission to wait</div>
-                </button>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Your Real Question Is:</h2>
+              <div className="bg-indigo-50 p-6 rounded-2xl">
+                <p className="text-xl font-medium text-indigo-900">{realQuestion}</p>
               </div>
+            </div>
+
+            <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-2xl">
+              <h3 className="font-bold text-amber-900 mb-3">Now, what do you need?</h3>
+              <p className="text-amber-800">Choose the path that feels right TODAY. Both are valid.</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Action Path */}
+              <button
+                onClick={() => {
+                  setQuestionChoice('action');
+                  setStep('commitment-action');
+                  generatePathOptions();
+                }}
+                className="p-8 border-2 border-green-200 hover:border-green-500 rounded-2xl text-left transition-all bg-gradient-to-br from-green-50 to-emerald-50 hover:shadow-lg"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <Sparkles className="w-10 h-10 text-green-600" />
+                  <span className="text-sm font-bold text-green-700 bg-green-200 px-3 py-1 rounded-full">ACTION</span>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">I'm Ready to Move</h3>
+                <p className="text-gray-700 mb-4">I want one small, specific thing I can do today to prove I can start.</p>
+                <ul className="text-sm text-gray-600 space-y-2">
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 mt-0.5 flex-shrink-0 text-green-600" />
+                    <span>Get one tiny "push-up" action</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 mt-0.5 flex-shrink-0 text-green-600" />
+                    <span>Something you can do in under 15 minutes</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 mt-0.5 flex-shrink-0 text-green-600" />
+                    <span>Break the inertia</span>
+                  </li>
+                </ul>
+              </button>
+
+              {/* Acceptance Path */}
+              <button
+                onClick={() => {
+                  setQuestionChoice('acceptance');
+                  setStep('commitment-acceptance');
+                  generatePathOptions();
+                }}
+                className="p-8 border-2 border-purple-200 hover:border-purple-500 rounded-2xl text-left transition-all bg-gradient-to-br from-purple-50 to-pink-50 hover:shadow-lg"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <Heart className="w-10 h-10 text-purple-600" />
+                  <span className="text-sm font-bold text-purple-700 bg-purple-200 px-3 py-1 rounded-full">ACCEPTANCE</span>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">I Need Permission</h3>
+                <p className="text-gray-700 mb-4">I need to give myself permission to pause, to be messy, to do this my way.</p>
+                <ul className="text-sm text-gray-600 space-y-2">
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 mt-0.5 flex-shrink-0 text-purple-600" />
+                    <span>Get one "permission slip"</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 mt-0.5 flex-shrink-0 text-purple-600" />
+                    <span>Remove a fake rule you're following</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 mt-0.5 flex-shrink-0 text-purple-600" />
+                    <span>Waiting can break inertia too</span>
+                  </li>
+                </ul>
+              </button>
+            </div>
+
+            <div className="bg-blue-50 p-4 rounded-xl text-center">
+              <p className="text-sm text-blue-800">
+                <strong>Remember:</strong> Both paths are valid. Acceptance IS action. Choose what feels right for TODAY.
+              </p>
             </div>
           </div>
         )}
 
-        {/* CHOOSE PATH SCREEN (Action) - WITH USER COMMITMENT! */}
-        {step === 'choose-path' && (
+        {/* COMMITMENT ACTION SCREEN */}
+        {step === 'commitment-action' && (
           <div className="bg-white rounded-3xl shadow-2xl p-8 space-y-6">
             <div className="text-center mb-6">
-              <Heart className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Your One Push-Up</h2>
-              <p className="text-gray-600">What's one action so small it feels silly?</p>
+              <Sparkles className="w-12 h-12 text-green-600 mx-auto mb-4" />
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Your One Push-Up</h2>
+              <p className="text-gray-600">One tiny action to prove you can start</p>
             </div>
 
-            <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-2xl">
-              <p className="text-sm text-blue-800 mb-2">
-                <strong>Your Real Question:</strong>
-              </p>
-              <p className="text-blue-900 italic leading-relaxed">"{realQuestion}"</p>
+            <div className="bg-indigo-50 p-6 rounded-2xl mb-6">
+              <p className="text-sm font-bold text-indigo-900 mb-2">Your Real Question:</p>
+              <p className="text-lg text-indigo-800">{realQuestion}</p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3">You choose your first domino:</h3>
-              <p className="text-sm text-gray-600 mb-4">
-                What's one tiny action that would answer this question? Trust yourself.
-              </p>
-              <p className="text-sm text-gray-500 italic">
-                "The smallest move that proves the question is answerable in your real life" — Chapter 1
-              </p>
-            </div>
-
-            {!showSuggestions && (
-              <button
-                onClick={generatePathSuggestions}
-                disabled={isGenerating}
-                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold py-4 px-4 rounded-2xl transition-all flex items-center justify-center gap-2"
-              >
-                {isGenerating ? (
-                  <>
-                    <Sparkles className="w-5 h-5 animate-pulse" />
-                    Generating 5 diverse suggestions...
-                  </>
-                ) : (
-                  <>
-                    <Lightbulb className="w-5 h-5" />
-                    Need ideas? See 5 gentle suggestions
-                  </>
-                )}
-              </button>
-            )}
-
-            {showSuggestions && pathOptions.length > 0 && (
-              <div className="space-y-3">
-                <h4 className="font-semibold text-gray-900 text-sm mb-4">5 paths to consider (choose what feels right):</h4>
-                {pathOptions.map((option, idx) => (
-                  <div key={idx} className="bg-white border-2 border-gray-300 rounded-2xl p-5 hover:border-blue-400 hover:shadow-md transition-all">
+            {isGenerating ? (
+              <div className="text-center py-12">
+                <Sparkles className="w-12 h-12 text-green-500 mx-auto mb-4 animate-spin" />
+                <p className="text-gray-600">Generating your options...</p>
+              </div>
+            ) : showSuggestions && (
+              <div className="space-y-4">
+                <h3 className="font-bold text-gray-900 mb-4">AI-Generated Suggestions (Pick one or write your own):</h3>
+                {pathOptions.map((path, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setChosenPushUp(path.option)}
+                    className={`w-full text-left p-6 rounded-2xl border-2 transition-all ${chosenPushUp === path.option ? 'border-green-600 bg-green-50' : 'border-gray-200 hover:border-green-300'}`}
+                  >
                     <div className="flex items-start justify-between mb-2">
-                      <div className="font-semibold text-gray-900 text-sm">{option.type}</div>
-                      <div className="text-xs font-semibold text-blue-700 bg-blue-100 px-3 py-1 rounded-full">
-                        P: {option.probability}%
-                      </div>
+                      <p className="text-lg font-semibold text-gray-900">{path.option}</p>
+                      {chosenPushUp === path.option && <CheckCircle className="w-5 h-5 text-green-600" />}
                     </div>
-                    <div className="text-gray-700 mb-2 leading-relaxed">{option.suggestion}</div>
-                    <div className="text-xs text-gray-500 italic">{option.why}</div>
-                  </div>
+                    <p className="text-sm text-gray-600 mb-2">{path.why}</p>
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 bg-gray-200 rounded-full h-2">
+                        <div className="bg-green-500 h-2 rounded-full" style={{width: `${path.probability}%`}}></div>
+                      </div>
+                      <span className="text-xs text-gray-500">{path.probability}% match</span>
+                    </div>
+                  </button>
                 ))}
-                <p className="text-xs text-gray-500 text-center mt-4 bg-gray-50 p-3 rounded-xl">
-                  <strong>About P scores:</strong> They show diversity - higher P means more unique from others. 
-                  These are suggestions, not commands. Choose what feels right, blend them, or ignore them completely.
-                </p>
               </div>
             )}
 
-            {/* 🆕 USER COMMITMENT - TYPE YOUR ONE PUSH-UP */}
-            <div className="pt-6 border-t border-gray-200 space-y-4">
-              <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-xl">
-                <p className="text-sm font-semibold text-yellow-900 mb-1">
-                  ⚡ The First Domino Moment
-                </p>
-                <p className="text-sm text-yellow-800">
-                  Write the EXACT action you'll take. Be specific. Make it so small it feels silly.
-                </p>
-              </div>
-
-              <div>
-                <label htmlFor="chosen-pushup" className="block font-bold text-gray-900 mb-2">
-                  My One Push-Up (I commit to this):
-                </label>
-                <p className="text-sm text-gray-600 mb-3">
-                  Type the tiny action you choose. This is your contract with yourself.
-                </p>
-                <input
-                  type="text"
-                  id="chosen-pushup"
-                  value={chosenPushUp}
-                  onChange={(e) => setChosenPushUp(e.target.value)}
-                  placeholder="E.g., I will open the file, I will send one text, I will write one sentence..."
-                  className="w-full p-4 border border-blue-400 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 shadow-inner"
-                  required
-                />
-              </div>
+            <div className="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-2xl">
+              <h3 className="font-bold text-purple-900 mb-3">Or Write Your Own One Push-Up:</h3>
+              <textarea
+                value={chosenPushUp}
+                onChange={(e) => setChosenPushUp(e.target.value)}
+                placeholder="What's ONE tiny thing you can do TODAY? (Be specific: 'Write 3 sentences in my journal tonight')"
+                className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                rows={3}
+                required
+              />
             </div>
-
+            
             <button
               onClick={() => setStep('worksheet-offer')}
               disabled={!chosenPushUp}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-[1.01]"
+              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-[1.01]"
             >
-              I've Committed My First Step - Get My Worksheet
+              I've Chosen My One Push-Up - Get My Worksheet
             </button>
           </div>
         )}
 
-        {/* ACCEPTANCE PATH SCREEN - WITH USER COMMITMENT */}
-        {step === 'acceptance-path' && (
+        {/* COMMITMENT ACCEPTANCE SCREEN */}
+        {step === 'commitment-acceptance' && (
           <div className="bg-white rounded-3xl shadow-2xl p-8 space-y-6">
             <div className="text-center mb-6">
-              <Heart className="w-12 h-12 text-green-600 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Permission to Wait</h2>
-              <p className="text-gray-600">Sometimes not-ready is the right answer</p>
+              <Heart className="w-12 h-12 text-purple-600 mx-auto mb-4" />
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Your Permission Slip</h2>
+              <p className="text-gray-600">What do you need permission to do (or not do)?</p>
             </div>
 
-            <div className="bg-green-50 border-l-4 border-green-600 p-6 rounded-2xl">
-              <p className="text-green-900 leading-relaxed text-lg font-semibold">
-                Your Real Question revealed something important: you're not ready yet, and that's okay.
-              </p>
+            <div className="bg-indigo-50 p-6 rounded-2xl mb-6">
+              <p className="text-sm font-bold text-indigo-900 mb-2">Your Real Question:</p>
+              <p className="text-lg text-indigo-800">{realQuestion}</p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-6 space-y-4">
-              <h3 className="font-bold text-gray-900">Your One Push-Up is acceptance:</h3>
-              <p className="text-gray-700">
-                This isn't giving up—it's honoring where you are. Write the exact permission you need.
-              </p>
-              <p className="text-sm text-gray-600 italic">
-                "Action can also mean acceptance of not being ready"
-              </p>
-            </div>
-
-            {/* 🆕 USER COMMITMENT - PERMISSION SLIP */}
-            <div className="pt-4 border-t border-gray-100 space-y-4">
-              <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded-xl">
-                <p className="text-sm font-semibold text-green-900 mb-1">
-                  ✨ Your Permission Slip
-                </p>
-                <p className="text-sm text-green-800">
-                  Write the exact words that give you relief. This is your first action.
-                </p>
+            {isGenerating ? (
+              <div className="text-center py-12">
+                <Sparkles className="w-12 h-12 text-purple-500 mx-auto mb-4 animate-spin" />
+                <p className="text-gray-600">Generating your options...</p>
               </div>
-
-              <div>
-                <label htmlFor="chosen-permission-slip" className="block font-bold text-gray-900 mb-2">
-                  I Give Myself Permission To:
-                </label>
-                <p className="text-sm text-gray-600 mb-3">
-                  Be specific. What are you allowing yourself to not do, or to feel?
-                </p>
-                <textarea
-                  id="chosen-permission-slip"
-                  value={chosenPermissionSlip}
-                  onChange={(e) => setChosenPermissionSlip(e.target.value)}
-                  placeholder="E.g., I give myself permission to wait until next week, to feel scared without judging myself, to not have an answer yet..."
-                  className="w-full p-4 border border-green-400 rounded-xl focus:ring-4 focus:ring-green-200 focus:border-green-500 resize-none shadow-inner"
-                  rows={3}
-                  required
-                />
+            ) : showSuggestions && (
+              <div className="space-y-4">
+                <h3 className="font-bold text-gray-900 mb-4">AI-Generated Suggestions (Pick one or write your own):</h3>
+                {pathOptions.map((path, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setChosenPermissionSlip(path.option)}
+                    className={`w-full text-left p-6 rounded-2xl border-2 transition-all ${chosenPermissionSlip === path.option ? 'border-purple-600 bg-purple-50' : 'border-gray-200 hover:border-purple-300'}`}
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <p className="text-lg font-semibold text-gray-900">{path.option}</p>
+                      {chosenPermissionSlip === path.option && <CheckCircle className="w-5 h-5 text-purple-600" />}
+                    </div>
+                    <p className="text-sm text-gray-600 mb-2">{path.why}</p>
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 bg-gray-200 rounded-full h-2">
+                        <div className="bg-purple-500 h-2 rounded-full" style={{width: `${path.probability}%`}}></div>
+                      </div>
+                      <span className="text-xs text-gray-500">{path.probability}% match</span>
+                    </div>
+                  </button>
+                ))}
               </div>
+            )}
+
+            <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded-2xl">
+              <h3 className="font-bold text-green-900 mb-3">Or Write Your Own Permission Slip:</h3>
+              <p className="text-sm text-green-800 mb-3">Start with "I'm allowed to..."</p>
+              <textarea
+                value={chosenPermissionSlip}
+                onChange={(e) => setChosenPermissionSlip(e.target.value)}
+                placeholder="I'm allowed to... (Example: 'I'm allowed to rest before I prove I deserve it')"
+                className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
+                rows={3}
+                required
+              />
             </div>
             
             <button
